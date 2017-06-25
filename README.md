@@ -1,6 +1,7 @@
 # Minimal Starter with Angular on both Server and Browser Platforms
 
-## Run CentOS container with Angular pre-installed:
+## Run CentOS container with pre-installed Angular and NodeJS:
+If you do not want to install Angular, you can also run a docer image with pre-installed angular and node:
 ```sh
 docker run -it -p 8000:8000 -v $(pwd):/localdir oveits/angular_hello_world:centos bash
 ```
