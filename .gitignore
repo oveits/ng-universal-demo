@@ -3,3 +3,5 @@
 /lib/
 /yarn.lock
 *.log
+bak
+*.bak
