@@ -4,12 +4,14 @@
 ```sh
 docker run -it -p 8000:8000 -v $(pwd):/localdir oveits/angular_hello_world:centos bash
 ```
-## Clone this Repo
+## Clone this Repo (will be placed on docker host, since we have mapped a volume)
 ```sh
+cd /localdir
 git clone https://github.com/oveits/ng-universal-demo
 ```
 ## Install Dependencies
 ```sh
+cd ng-universal-demo
 npm i
 ```
 ## Get Started
