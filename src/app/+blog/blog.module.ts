@@ -1,6 +1,5 @@
 import {NgModule, Component, OnInit} from '@angular/core'
 import {RouterModule} from '@angular/router'
-//import { TransferHttp } from '../../modules/transfer-http/transfer-http';
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +7,8 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'blog-view',
-  template: `<h1 innerHtml="{{title}}"></h1><div innerHtml="{{content}}"></div>`
+  templateUrl: './blog.module.html'
+  //template: `<h1 innerHtml="{{title}}"></h1><div innerHtml="{{content}}"></div>`
 })
 
 export class BlogView implements OnInit {
