@@ -13,6 +13,7 @@ import { TransferHttpModule } from '../modules/transfer-http/transfer-http.modul
     CommonModule,
     HttpModule,
     TransferHttpModule,
+    DemoApp(['angular-toc']),
     RouterModule.forRoot([
       { path: '', component: HomeView, pathMatch: 'full'},
       { path: 'lazy', loadChildren: './+lazy/lazy.module#LazyModule'},
