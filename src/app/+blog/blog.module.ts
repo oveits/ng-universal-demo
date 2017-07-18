@@ -3,7 +3,6 @@ import {RouterModule} from '@angular/router'
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs/Observable';
-import * as angular from "angular";
 
 
 @Component({
@@ -35,62 +34,46 @@ export class BlogView implements OnInit {
   }
 
   private getToc(content: any) {
-//return 'test';
-     var div = null;
-     div = typeof document != 'undefined' ? document.createElement("div") : null;
-     //div = typeof window != 'undefined' ? window.document.createElement("div") : null;
-     //if( div == null) { div = angular.element('<div/>')[0]};
+     // create div for holding the content
+     var contentdiv = document.createElement("div"):
+     contentdiv.innerHTML = content;
 
-     //var div = document.createElement("div");
-     //var div = angular.element('<div/>')[0];
+     // create an array of headlines:
+     var myArrayOfHeadlineNodes = [].slice.call(contentdiv.querySelectorAll("h1, h2, h3, h4, h5, h6"));
 
-     //var tmp = angular.element(document).createElement("div");
-     //var div = tmp[0];
-console.log(div)
-     //tmp.appendChild(document.createTextNode("<h1>header 1</h1><h1>header 2</h1>"));
-     div.innerHTML = content;
-//return div.innerHTML;
-     //console.log(div.innerHTML); // <p>Test</p>
-
-     //var h1array = tmp.getElementsByTagName("h1");
-     //var harray = tmp.querySelectorAll("h1, h2, h3, h4, h5, h6");
-     //for (var h of harray) {
-         //console.log(h.tagName + ": " + h.innerHTML);
-     //}
-
-     var myArrayOfNodes = [].slice.call(div.querySelectorAll("h1, h2, h3, h4, h5, h6"));
+     // initialize table of contents (toc):
      var toc = document.createElement("ul");
-     var target = toc;
-     myArrayOfNodes.forEach( 
-       function(value, key, listObj) { 
-	   console.log(value.tagName + ": " + value.innerHTML);
-	   if ( "H1" == value.tagName ) { 
-	       target = toc;
-           }
-           if ( "H2" == value.tagName && target == toc ) {
-               target = target.appendChild(document.createElement("ul"));
-           }
-           //if ( "H1" == value.tagName || "H2" == value.tagName ) {
-               var li = target.appendChild(document.createElement("li"));
-	       li.innerHTML = value.innerHTML;
-           //}
-	   //console.log(toc.innerHTML); 
-       }
-//,
-	       //"myThisArg"
 
+     // initialize a pointer that points to toc root:
+     var pointer = toc;
+
+     // loop through the array of headlines
+     myArrayOfHeadlineNodes.forEach( 
+       function(value, key, listObj) { 
+	   
+           // if we have detected a top level headline ...
+	   if ( "H1" == value.tagName ) { 
+	       // ... reset the pointer to top level:
+	       pointer = toc;
+           }
+
+	   // if we are at top level and we have detected a headline level 2 ...
+           if ( "H2" == value.tagName && pointer == toc ) {
+	       // ... create a nested unordered list within the current list item:
+               pointer = pointer.appendChild(document.createElement("ul"));
+           }
+
+	   // for each headline, create a list item with the corresponding HTML content:
+           var li = pointer.appendChild(document.createElement("li"));
+	   li.innerHTML = value.innerHTML;
+       }
      );
      
+     // debugging:
      console.log(toc.innerHTML);
 
-     //var contentDOM = document.createTextNode(content);
-     //console.log(contentDOM.innerHTML);
-
-     return(
-         toc.innerHTML
-     );
+     return(toc.innerHTML);
   }
-
 }
 
 
@@ -102,6 +85,7 @@ console.log(div)
     ])
   ]
 })
+
 export class BlogModule {
 
 }
