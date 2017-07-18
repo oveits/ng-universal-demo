@@ -39,7 +39,7 @@ export class BlogView implements OnInit {
      contentdiv.innerHTML = content;
 
      // create an array of headlines:
-     var myArrayOfHeadlineNodes = [].slice.call(contentdiv.querySelectorAll("h1, h2, h3, h4, h5, h6"));
+     var myArrayOfHeadlineNodes = [].slice.call(contentdiv.querySelectorAll("h1, h2"));
 
      // initialize table of contents (toc):
      var toc = document.createElement("ul");
