@@ -35,7 +35,7 @@ export class BlogView implements OnInit {
 
   private getToc(content: any) {
      // create div for holding the content
-     var contentdiv = document.createElement("div"):
+     var contentdiv = document.createElement("div");
      contentdiv.innerHTML = content;
 
      // create an array of headlines:
