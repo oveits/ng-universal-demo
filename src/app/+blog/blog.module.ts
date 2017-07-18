@@ -35,12 +35,22 @@ export class BlogView implements OnInit {
   }
 
   private getToc(content: any) {
-     var tmp = document.createElement("div");
+//return 'test';
+     var div = null;
+     div = typeof document != 'undefined' ? document.createElement("div") : null;
+     //div = typeof window != 'undefined' ? window.document.createElement("div") : null;
+     //if( div == null) { div = angular.element('<div/>')[0]};
+
+     //var div = document.createElement("div");
+     //var div = angular.element('<div/>')[0];
+
      //var tmp = angular.element(document).createElement("div");
-     //var tmp = angular.element('<div/>')
+     //var div = tmp[0];
+console.log(div)
      //tmp.appendChild(document.createTextNode("<h1>header 1</h1><h1>header 2</h1>"));
-     tmp.innerHTML = content;
-     console.log(tmp.innerHTML); // <p>Test</p>
+     div.innerHTML = content;
+//return div.innerHTML;
+     //console.log(div.innerHTML); // <p>Test</p>
 
      //var h1array = tmp.getElementsByTagName("h1");
      //var harray = tmp.querySelectorAll("h1, h2, h3, h4, h5, h6");
@@ -48,7 +58,7 @@ export class BlogView implements OnInit {
          //console.log(h.tagName + ": " + h.innerHTML);
      //}
 
-     var myArrayOfNodes = [].slice.call(tmp.querySelectorAll("h1, h2, h3, h4, h5, h6"));
+     var myArrayOfNodes = [].slice.call(div.querySelectorAll("h1, h2, h3, h4, h5, h6"));
      var toc = document.createElement("ul");
      var target = toc;
      myArrayOfNodes.forEach( 
@@ -60,10 +70,10 @@ export class BlogView implements OnInit {
            if ( "H2" == value.tagName && target == toc ) {
                target = target.appendChild(document.createElement("ul"));
            }
-           if ( "H1" == value.tagName || "H2" == value.tagName ) {
+           //if ( "H1" == value.tagName || "H2" == value.tagName ) {
                var li = target.appendChild(document.createElement("li"));
 	       li.innerHTML = value.innerHTML;
-           }
+           //}
 	   //console.log(toc.innerHTML); 
        }
 //,
@@ -83,6 +93,7 @@ export class BlogView implements OnInit {
 
 }
 
+
 @NgModule({
   declarations: [BlogView],
   imports: [
@@ -94,3 +105,4 @@ export class BlogView implements OnInit {
 export class BlogModule {
 
 }
+

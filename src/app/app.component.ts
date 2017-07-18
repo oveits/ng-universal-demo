@@ -8,7 +8,6 @@ import { TransferState } from '../modules/transfer-state/transfer-state';
     <a routerLink="/">Home</a>
     <a routerLink="/lazy">Lazy</a>
     <a routerLink="/blog">Blog</a>
-    <toc-view></toc-view>
     <router-outlet></router-outlet>
   `,
   styles: [
