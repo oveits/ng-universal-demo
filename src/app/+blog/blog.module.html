@@ -1,3 +1,10 @@
+<a href="/blog#blogend" [ngx-scroll-to]="'blogend'">Go to the end of the blog</a>
+ 
 <h1 [innerHtml]="title"></h1>
 <div [innerHTML]="toc"></div>
 <div [innerHtml]="content"></div>
+<div id="blogend">
+  You've reached the end of the blog.
+</div>
+<div>{{content}}</div>
+
