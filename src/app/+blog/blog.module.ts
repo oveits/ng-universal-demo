@@ -3,9 +3,15 @@ import {RouterModule} from '@angular/router'
 import { Http, Response, Headers } from '@angular/http';
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs/Observable';
-import { Router, NavigationEnd } from '@angular/router';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { SafeHtml } from '@angular/platform-browser';
+//import * as angular from "angular";
 
+@Pipe({
+  name: 'sanitizeHtml'
+})
 
 @Component({
   selector: 'blog-view',
@@ -15,19 +21,12 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 export class BlogView implements OnInit {
   title: any = null;
   content: any = null;
+  contentDOM: any = document.createElement("div");
   toc: any = null;
 
-  constructor(private http: Http, private router: Router) {
-    // from: https://stackoverflow.com/questions/36101756/angular2-routing-with-hashtag-to-page-anchor
-    router.events.subscribe(s => {
-      if (s instanceof NavigationEnd) {
-        const tree = router.parseUrl(router.url);
-        if (tree.fragment) {
-          const element = document.querySelector("#" + tree.fragment);
-          if (element) { element.scrollIntoView(element); }
-        }
-      }
-    });
+  constructor(private http: Http, private sanitizer: DomSanitizer) {
+//var app = angular.module('myApp', ['ngSanitize']);
+      
   }
 
   goTo(location: string): void {
@@ -87,9 +86,14 @@ var k = 0;
 
 	   // for each headline, create a list item with the corresponding HTML content:
            var li = pointer.appendChild(document.createElement("li"));
-	   li.innerHTML = '<a ng-click="gotoElement(' + "'" + value.id + "'" + ')">' + value.innerHTML + '</a>';
+	   //li.innerHTML = '<a ng-click="gotoElement(' + "'" + value.id + "'" + ')">' + value.innerHTML + '</a>';
 	   //li.innerHTML = '<a href="./blog#' + value.id + '">' + value.innerHTML + '</a>';
 	   //li.innerHTML = '<a ng-click="goTo(' + "'" + value.id + "'" + ')">' + value.innerHTML + '</a>';
+           // working html example: <a href="/blog#blogend" [ngx-scroll-to]="'blogend'">Go to the end of the blog</a>
+           //li.innerHTML = '<a href="/blog#blogend" [ngx-scroll-to]="' + "'blogend'" + '">' + value.innerHTML + '</a>';
+           //li.innerHTML = '<a href="/blog#' + 'blogend' + '" [ngx-scroll-to]="' + "'" + 'blogend' + "'" + '">' + value.innerHTML + '</a>';
+           //value.id = 'blogend';
+           li.innerHTML = '<a href="/blog#' + value.id + '" [ngx-scroll-to]="' + "'" + value.id + "'" + '">' + value.innerHTML + '</a>';
        }
      );
      
@@ -98,9 +102,21 @@ var k = 0;
 
      // add the random ids to the content:
      //content = contentdiv.innerHTML;
-     this.content = contentdiv.innerHTML;
+//     this.content = contentdiv.innerHTML;
+     this.content = this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML);
+     this.contentDOM = contentdiv;
 
      return(toc.innerHTML);
+  }
+}
+
+export class SanitizeHtmlPipe implements PipeTransform {
+
+  constructor(private _sanitizer:DomSanitizer) {
+  }
+
+  transform(v:string):SafeHtml {
+    return this._sanitizer.bypassSecurityTrustHtml(v);
   }
 }
 
