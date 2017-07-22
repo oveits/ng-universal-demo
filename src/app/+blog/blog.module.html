@@ -1,6 +1,8 @@
 <div id="top9347693847" style="display: none;">top</div>
  
-<h1 [innerHtml]="title"></h1>
+<h2 [innerHtml]="err"><h2>
+<h2 [innerHtml]="statusText"><h2>
+<h1 [innerHtml]="title || 'Please Wait! Loading Blog Post...'"></h1>
 <div [innerHTML]="toc"></div>
 <div [innerHtml]="content"></div>
 

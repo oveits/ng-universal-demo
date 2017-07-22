@@ -23,6 +23,9 @@ export class BlogView implements OnInit {
   content: any = null;
   contentDOM: any = document.createElement("div");
   toc: any = null;
+  status: any = null;
+  statusText: any = null;
+  err: any = null;
 
   constructor(private http: Http, private sanitizer: DomSanitizer) {
 //var app = angular.module('myApp', ['ngSanitize']);
@@ -40,13 +43,24 @@ export class BlogView implements OnInit {
   private getMyBlog() {
     return this.http.get('https://public-api.wordpress.com/rest/v1.1/sites/oliverveits.wordpress.com/posts/3078')
                 .map((res: Response) => res.json())
-                 .subscribe(data => {
+                .subscribe(
+                    data => {
 			this.title = data.title;
 			this.content = data.content;
                         this.toc = this.getToc(this.content);
                         //console.log(data);
                         console.log("content = " + this.content);
-                });
+                    }, 
+                    (err) => console.log(err) ,
+                    (err) => {this.err = console.log(err)} 
+//                    ,
+//                    status => {
+//                        this.status = status;
+//                    },
+//                    statusText => {
+//                        this.statusText = statusText;
+//                    }
+                );
   }
 
   private getToc(content: any) {
