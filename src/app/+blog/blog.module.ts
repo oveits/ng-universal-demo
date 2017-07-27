@@ -73,24 +73,29 @@ export class BlogView implements OnInit {
 
 	   // if headline has no id, add a unique id
            if ("" == value.id) {
-               value.id = "id" + Date.now() + ++id_suffix;
+               value.id = "id934752938475" + ++id_suffix;
            } 
 
 	   // for each headline, create a list item with the corresponding HTML content:
            var li = pointer.appendChild(document.createElement("li"));
-           li.innerHTML = '<a href="/blog#' + value.id + '" [ngx-scroll-to]="' + "'" + value.id + "'" + '">' + value.innerHTML + '</a>';
+           //li.innerHTML = '<a href="/blog#' + value.id + '" [ngx-scroll-to]="' + "'" + value.id + "'" + '">' + value.innerHTML + '</a>';
+           li.innerHTML = '<a href="/blog#' + value.id + '">' + value.innerHTML + '</a>';
+           //li.innerHTML = '<a [ngx-scroll-to]="' + "'" + value.id + "'" + '">' + value.innerHTML + '</a>';
+           //li.innerHTML = '<a ng-reflect-ngx-scroll-to="' + value.id + '">' + value.innerHTML + '</a>';
        }
      );
      
      // debugging:
      console.log(toc.innerHTML);
+     var safeTocInnerHTML = this.sanitizer.bypassSecurityTrustHtml(toc.innerHTML);
 
      // update the content with the changed contentdiv, which contains IDs for every headline
-     //   note that we need to use the saniztizer.bypassSecurityTrustHtml function in order to tell angular
+     //   note that we need to use the sanitizer.bypassSecurityTrustHtml function in order to tell angular
      //   not to remove the ids, when used as [innerHtml] attribute in the HTML template
      this.content = this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML);
 
-     return(toc.innerHTML);
+     //return(toc.innerHTML);
+     return(safeTocInnerHTML);
   }
 }
 
