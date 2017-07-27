@@ -34,7 +34,7 @@ export class BlogView implements OnInit {
 			this.content = data.content;
                         this.toc = this.getToc(this.content);
                         //console.log(data);
-                        console.log("content = " + this.content);
+                        console.log("content = " + this.content.changingThisBreaksApplicationSecurity);
                 });
   }
 
@@ -78,24 +78,19 @@ export class BlogView implements OnInit {
 
 	   // for each headline, create a list item with the corresponding HTML content:
            var li = pointer.appendChild(document.createElement("li"));
-           //li.innerHTML = '<a href="/blog#' + value.id + '" [ngx-scroll-to]="' + "'" + value.id + "'" + '">' + value.innerHTML + '</a>';
            li.innerHTML = '<a href="/blog#' + value.id + '">' + value.innerHTML + '</a>';
-           //li.innerHTML = '<a [ngx-scroll-to]="' + "'" + value.id + "'" + '">' + value.innerHTML + '</a>';
-           //li.innerHTML = '<a ng-reflect-ngx-scroll-to="' + value.id + '">' + value.innerHTML + '</a>';
        }
      );
      
      // debugging:
      console.log(toc.innerHTML);
-     var safeTocInnerHTML = this.sanitizer.bypassSecurityTrustHtml(toc.innerHTML);
 
      // update the content with the changed contentdiv, which contains IDs for every headline
      //   note that we need to use the sanitizer.bypassSecurityTrustHtml function in order to tell angular
      //   not to remove the ids, when used as [innerHtml] attribute in the HTML template
      this.content = this.sanitizer.bypassSecurityTrustHtml(contentdiv.innerHTML);
 
-     //return(toc.innerHTML);
-     return(safeTocInnerHTML);
+     return(toc.innerHTML);
   }
 }
 
