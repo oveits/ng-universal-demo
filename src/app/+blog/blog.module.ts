@@ -7,6 +7,9 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 //import * as angular from "angular";
+import { PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'blog-view',
@@ -18,7 +21,7 @@ export class BlogView implements OnInit {
   content: any = null;
   toc: any = null;
 
-  constructor(private http: Http, private sanitizer: DomSanitizer) {
+  constructor(private http: Http, private sanitizer: DomSanitizer, @Inject(PLATFORM_ID) private platformId: Object) {
       
   }
 
@@ -31,8 +34,11 @@ export class BlogView implements OnInit {
                 .map((res: Response) => res.json())
                  .subscribe(data => {
 			this.title = data.title;
-			this.content = data.content;
-                        this.toc = this.getToc(this.content);
+                        this.content = data.content;
+                        if (isPlatformBrowser(this.platformId)) {
+                            // Client only code.
+                            this.toc = this.getToc(this.content);
+                        }
                         //console.log(data);
                         console.log("content = " + this.content.changingThisBreaksApplicationSecurity);
                 });
