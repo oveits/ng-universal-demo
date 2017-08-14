@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-//import * as angular from "angular";
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Inject } from '@angular/core';
@@ -17,9 +16,9 @@ import { Inject } from '@angular/core';
 })
 
 export class BlogView implements OnInit {
-  title: any = null;
-  content: any = null;
-  toc: any = null;
+  private title  : SafeHtml|String = '';
+  private toc : SafeHtml|String = '';
+  private content : SafeHtml|String = '';
 
   constructor(private http: Http, private sanitizer: DomSanitizer, @Inject(PLATFORM_ID) private platformId: Object) {
       
@@ -40,7 +39,7 @@ export class BlogView implements OnInit {
                             this.toc = this.getToc(this.content);
                         }
                         //console.log(data);
-                        console.log("content = " + this.content.changingThisBreaksApplicationSecurity);
+                        //console.log("content = " + this.content);
                 });
   }
 
