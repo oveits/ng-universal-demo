@@ -4,7 +4,7 @@ import { TransferState } from '../modules/transfer-state/transfer-state';
 @Component({
   selector: 'demo-app',
   template: `
-    <h1>Universal Demo</h1>
+    <h1>Universal REST + TOC Demo</h1>
     <a routerLink="/">Home</a>
     <a routerLink="/lazy">Lazy</a>
     <a routerLink="/blog">Blog</a>
