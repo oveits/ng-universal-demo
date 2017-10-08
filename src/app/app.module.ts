@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeView } from './home/home-view.component';
-import { TocView } from './+toc/toc.module';
+//import { TocView } from './+toc/toc.module';
 import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
 
 
