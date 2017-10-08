@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeView } from './home/home-view.component';
-//import { TocView } from './+toc/toc.module';
 import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
 
 
@@ -20,7 +19,7 @@ import { TransferHttpModule } from '../modules/transfer-http/transfer-http.modul
       { path: 'blog', loadChildren: './+blog/blog.module#BlogModule'}
     ])
   ],
-  declarations: [ AppComponent, HomeView, TocView],
+  declarations: [ AppComponent, HomeView],
   exports: [ AppComponent ]
 })
 export class AppModule {}
