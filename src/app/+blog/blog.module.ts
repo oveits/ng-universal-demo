@@ -16,9 +16,9 @@ import { Inject } from '@angular/core';
 })
 
 export class BlogView implements OnInit {
-  private title  : SafeHtml|String = '';
-  private toc : SafeHtml|String = '';
-  private content : SafeHtml|String = '';
+  public title  : SafeHtml|String = '';
+  public toc : SafeHtml|String = '';
+  public content : SafeHtml|String = '';
 
   constructor(private http: Http, private sanitizer: DomSanitizer, @Inject(PLATFORM_ID) private platformId: Object) {
       
