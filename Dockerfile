@@ -15,14 +15,15 @@ WORKDIR /ng-app
 COPY . .
 
 ## Build the angular app in production mode and store the artifacts in dist folder
-RUN [ -d dist ] && rm dist || echo ''
-RUN npm run build:prod
+RUN npm run build:prod:sequential
 
 
 ### STAGE 2: Setup ###
 
 FROM node:8-alpine
 
-ADD dist /dist
+COPY --from=builder /ng-app/dist /dist
+
+EXPOSE 8000
 
 CMD ["node", "dist/server.js"]
