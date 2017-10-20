@@ -15,7 +15,7 @@ import { enableProdMode } from '@angular/core';
 enableProdMode();
 const app = express();
 const api = new App();
-const port = 80;
+const port = 8000;
 const baseUrl = `http://localhost:${port}`;
 
 app.engine('html', ngExpressEngine({
